@@ -37,7 +37,18 @@
 
 // src/App.js
 import React, { useState, useEffect } from "react";
-import Cell from "./Components/Cell"; // Adjust path if necessary
+import Cell from './Components/Cell';
+import EditableCell  from "./Components/EditableCell";
+import Grid from "./Components/Grid";
+import GrowAnimation from "./Components/GrowAnimation";
+// import Header from "./Components/Header";
+// import RootLayout from "./Components/layout";
+// import Page from "./Components/Page";
+// import Sidebar from "./Components/Sidebar";
+// import Spinner from "./Components/Spinner";
+// import useStore from "./Components/store";
+// import Toolbar from "./Components/Toolbar";
+// import useSpreadsheetStore from "./Components/useSpreadSheetStore";
 
 const App = () => {
   // Initialize state for cells
@@ -80,6 +91,62 @@ const App = () => {
     }
     return cellElements;
   };
+  const editableCells=(cols, rows)=>{
+    const cellElements = []; 
+    for (let r = 1; r <= rows; r++) {
+      for (let c = 1; c <= cols; c) {
+        const id = `cell-${(r - 1) * cols + c}`
+        cellElements.push(
+          <EditableCell
+          key={id}
+          id={id}
+          value={cells[id] || ""}
+          onChange={updateCell}
+          />
+          );
+          }
+          
+          return cellElements;
+          }
+        };
+
+        const GridCells=(cols, rows)=>{
+          const cellElements = []; 
+          for (let r = 1; r <= rows; r++) {
+            for (let c = 1; c <= cols; c) {
+              const id = `cell-${(r - 1) * cols + c}`
+              cellElements.push(
+                <Grid
+                key={id}
+                id={id}
+                value={cells[id] || ""}
+                onChange={updateCell}
+                />
+                );
+                }
+                
+                return cellElements;
+                }
+              };
+      
+              const GrowAnimations=(cols, rows)=>{
+                const cellElements = []; 
+                for (let r = 1; r <= rows; r++) {
+                  for (let c = 1; c <= cols; c) {
+                    const id = `cell-${(r - 1) * cols + c}`
+                    cellElements.push(
+                      <GrowAnimation
+                      key={id}
+                      id={id}
+                      value={cells[id] || ""}
+                      onChange={updateCell}
+                      />
+                      );
+                      }
+                      
+                      return cellElements;
+                      }
+                    };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
@@ -87,9 +154,13 @@ const App = () => {
       <h1 className="App-header">Spreadsheet App</h1>
       <div className="grid grid-cols-5 gap-2">
         {generateCells(10, 10)} {/* 5 columns and 4 rows */}
+        {editableCells(10, 10)} {   } 
+        {GridCells(10, 10)}{}
+        {GrowAnimation(10,10)} {}
       </div>
     </div>
   );
+
 };
 
 export default App;
